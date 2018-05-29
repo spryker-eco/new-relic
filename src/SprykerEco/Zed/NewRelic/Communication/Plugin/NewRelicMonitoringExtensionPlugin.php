@@ -7,7 +7,7 @@
 namespace SprykerEco\Zed\NewRelic\Communication\Plugin;
 
 use Spryker\Zed\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
-use SprykerEco\Shared\Monitoring\Plugin\NewRelicMonitoringExtensionPlugin as SharedMonitoringMonitoringExtensionPlugin;
+use SprykerEco\Shared\NewRelic\Plugin\NewRelicMonitoringExtensionPlugin as SharedMonitoringMonitoringExtensionPlugin;
 
 class NewRelicMonitoringExtensionPlugin extends SharedMonitoringMonitoringExtensionPlugin implements MonitoringExtensionPluginInterface
 {

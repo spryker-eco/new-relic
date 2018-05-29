@@ -7,7 +7,7 @@
 namespace SprykerEco\Yves\NewRelic\Plugin;
 
 use Spryker\Yves\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
-use SprykerEco\Shared\Monitoring\Plugin\NewRelicMonitoringExtensionPlugin as SharedMonitoringMonitoringExtensionPlugin;
+use SprykerEco\Shared\NewRelic\Plugin\NewRelicMonitoringExtensionPlugin as SharedMonitoringMonitoringExtensionPlugin;
 
 class NewRelicMonitoringExtensionPlugin extends SharedMonitoringMonitoringExtensionPlugin implements MonitoringExtensionPluginInterface
 {
