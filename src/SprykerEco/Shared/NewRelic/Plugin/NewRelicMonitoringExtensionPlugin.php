@@ -16,6 +16,15 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
     protected $application;
 
     /**
+     * @var bool
+     */
+    protected $isActive;
+
+    public function __construct()
+    {
+        $this->isActive = extension_loaded('newrelic');
+    }
+    /**
      * @param string $message
      * @param \Exception|\Throwable $exception
      *
@@ -23,21 +32,29 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function setError(string $message, $exception): void
     {
-        newrelic_notice_error($message, $exception);
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_notice_error($message, $exception);
     }
 
     /**
-     * @param string $application
-     * @param string $store
-     * @param string $environment
+     * @param null|string $application
+     * @param null|string $store
+     * @param null|string $environment
      *
      * @return void
      */
-    public function setAppName(string $application, string $store, string $environment): void
+    public function setApplicationName(?string $application = null, ?string $store = null, ?string $environment = null): void
     {
+        if (!$this->isActive) {
+            return;
+        }
+
         $this->application = $application . '-' . $store . ' (' . $environment . ')';
 
-        newrelic_set_appname($this->application);
+        \newrelic_set_appname($this->application);
     }
 
     /**
@@ -47,7 +64,11 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function setTransactionName(string $name): void
     {
-        newrelic_name_transaction($name);
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_name_transaction($name);
     }
 
     /**
@@ -55,7 +76,11 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markStartTransaction(): void
     {
-        newrelic_start_transaction($this->application);
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_start_transaction($this->application);
     }
 
     /**
@@ -63,7 +88,11 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markEndOfTransaction(): void
     {
-        newrelic_end_transaction();
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_end_transaction();
     }
 
     /**
@@ -71,7 +100,11 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markIgnoreTransaction(): void
     {
-        newrelic_ignore_transaction();
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_ignore_transaction();
     }
 
     /**
@@ -79,7 +112,11 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markAsConsoleCommand(): void
     {
-        newrelic_background_job(true);
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_background_job(true);
     }
 
     /**
@@ -90,7 +127,11 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function addCustomParameter(string $key, $value): void
     {
-        newrelic_add_custom_parameter($key, $value);
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_add_custom_parameter($key, $value);
     }
 
     /**
@@ -100,6 +141,10 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function addCustomTracer(string $tracer): void
     {
-        newrelic_add_custom_tracer($tracer);
+        if (!$this->isActive) {
+            return;
+        }
+
+        \newrelic_add_custom_tracer($tracer);
     }
 }
