@@ -4,7 +4,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Yves\Monitoring\Plugin;
+namespace SprykerEco\Yves\NewRelic\Plugin;
 
 use Spryker\Yves\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
 use SprykerEco\Shared\Monitoring\Plugin\NewRelicMonitoringExtensionPlugin as SharedMonitoringMonitoringExtensionPlugin;

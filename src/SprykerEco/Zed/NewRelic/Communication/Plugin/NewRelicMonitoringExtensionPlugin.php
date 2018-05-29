@@ -4,7 +4,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Zed\Monitoring\Communication\Plugin;
+namespace SprykerEco\Zed\NewRelic\Communication\Plugin;
 
 use Spryker\Zed\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
 use SprykerEco\Shared\Monitoring\Plugin\NewRelicMonitoringExtensionPlugin as SharedMonitoringMonitoringExtensionPlugin;
