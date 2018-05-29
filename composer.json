@@ -1,0 +1,24 @@
+{
+  "name": "spryker-eco/new-relic",
+  "description": "NewRelic module",
+  "license": "proprietary",
+  "require": {
+    "php": ">=7.1",
+    "spryker/monitoring-extension": "^1.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "SprykerEco\\": "src/SprykerEco/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
