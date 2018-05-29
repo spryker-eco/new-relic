@@ -1,6 +1,6 @@
 # NewRelic Module
 
-ADD MODULE DESCRIPTION HERE
+Module provides an extension plugin for Spryker's Monitoring module.
 
 ## Installation
 
