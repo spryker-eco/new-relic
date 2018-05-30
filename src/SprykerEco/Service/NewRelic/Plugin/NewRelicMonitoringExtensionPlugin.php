@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Copyright © 2018-present Spryker Systems GmbH. All rights reserved.
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Shared\NewRelic\Plugin;
+namespace SprykerEco\Service\NewRelic\Plugin;
 
-use Spryker\Shared\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
+use Spryker\Service\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
 
 class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInterface
 {
@@ -24,6 +25,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
     {
         $this->isActive = extension_loaded('newrelic');
     }
+
     /**
      * @param string $message
      * @param \Exception|\Throwable $exception
