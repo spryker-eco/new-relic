@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Apache OSL-2
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Zed\NewRelic;
 
 use Spryker\Zed\Kernel\AbstractBundleConfig;
-use SprykerEco\Shared\NewRelic\NewRelicConstants;
+use SprykerEco\Shared\NewRelic\NewRelicEnv;
 
 class NewRelicConfig extends AbstractBundleConfig
 {
@@ -17,7 +17,7 @@ class NewRelicConfig extends AbstractBundleConfig
      */
     public function getNewRelicDeploymentApiUrl(): string
     {
-        return $this->get(NewRelicConstants::NEW_RELIC_DEPLOYMENT_API_URL);
+        return $this->get(NewRelicEnv::NEW_RELIC_DEPLOYMENT_API_URL);
     }
 
     /**
@@ -25,6 +25,6 @@ class NewRelicConfig extends AbstractBundleConfig
      */
     public function getNewRelicApiKey(): string
     {
-        return $this->get(NewRelicConstants::NEW_RELIC_API_KEY);
+        return $this->get(NewRelicEnv::NEW_RELIC_API_KEY);
     }
 }

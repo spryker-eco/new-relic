@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * Apache OSL-2
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
 namespace SprykerEco\Shared\NewRelic;
 
-interface NewRelicConstants
+interface NewRelicEnv
 {
     /**
      * Specification:
@@ -15,7 +15,7 @@ interface NewRelicConstants
      *
      * @api
      */
-    const NEW_RELIC_DEPLOYMENT_API_URL = 'NEW_RELIC_DEPLOYMENT_API_URL';
+    const NEW_RELIC_DEPLOYMENT_API_URL = 'NEWRELIC:NEW_RELIC_DEPLOYMENT_API_URL';
 
     /**
      * Specification:
@@ -23,5 +23,5 @@ interface NewRelicConstants
      *
      * @api
      */
-    const NEW_RELIC_API_KEY = 'NEW_RELIC_API_KEY';
+    const NEW_RELIC_API_KEY = 'NEWRELIC:NEW_RELIC_API_KEY';
 }
