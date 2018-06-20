@@ -38,7 +38,7 @@ class RecordDeploymentConsole extends Console
     /**
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         parent::configure();
 
@@ -82,7 +82,7 @@ class RecordDeploymentConsole extends Console
      *
      * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getMessenger()->info(sprintf(
             'Send deployment notification to New Relic for %s',
