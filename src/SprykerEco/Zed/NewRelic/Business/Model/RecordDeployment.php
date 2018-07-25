@@ -7,7 +7,7 @@
 
 namespace SprykerEco\Zed\NewRelic\Business\Model;
 
-use GuzzleHttp\Client;
+use Guzzle\Http\Client;
 use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException;
 
