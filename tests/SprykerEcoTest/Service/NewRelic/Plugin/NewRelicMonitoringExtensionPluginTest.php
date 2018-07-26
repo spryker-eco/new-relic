@@ -5,7 +5,7 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SPrykerEcoTest\Service\Newrelic\Plugin;
+namespace SprykerEcoTest\Service\Newrelic\Plugin;
 
 use Codeception\Test\Unit;
 use Spryker\Service\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
