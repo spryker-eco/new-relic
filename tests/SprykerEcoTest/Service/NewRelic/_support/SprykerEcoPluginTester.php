@@ -1,5 +1,13 @@
 <?php
+
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
 namespace SprykerEcoTest\Zed\NewRelic;
+
+use Codeception\Actor;
 
 /**
  * Inherited Methods
@@ -15,8 +23,8 @@ namespace SprykerEcoTest\Zed\NewRelic;
  * @method \Codeception\Lib\Friend haveFriend($name, $actorClass = NULL)
  *
  * @SuppressWarnings(PHPMD)
-*/
-class SprykerEcoPluginTester extends \Codeception\Actor
+ */
+class SprykerEcoPluginTester extends Actor
 {
     use _generated\SprykerEcoPluginTesterActions;
 
