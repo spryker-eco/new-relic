@@ -10,4 +10,4 @@ composer require spryker-eco/new-relic
 
 ## Documentation
 
-[Module Documentation](https://academy.spryker.com/)
+[Module Documentation](http://academy.spryker.com/developing_with_spryker/industry_partner_integration/performance_monitoring_new_relic.html)
