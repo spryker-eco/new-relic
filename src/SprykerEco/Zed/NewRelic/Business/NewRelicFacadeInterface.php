@@ -22,6 +22,8 @@ interface NewRelicFacadeInterface
      *
      * @param array $arguments
      *
+     * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
+     *
      * @return \SprykerEco\Zed\NewRelic\Business\Model\RecordDeploymentInterface
      */
     public function recordDeployment(array $arguments = []): RecordDeploymentInterface;

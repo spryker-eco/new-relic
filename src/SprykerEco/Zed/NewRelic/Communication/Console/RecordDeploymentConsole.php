@@ -53,13 +53,13 @@ class RecordDeploymentConsole extends Console
 
         $this->addArgument(
             self::ARGUMENT_USER,
-            InputArgument::OPTIONAL,
+            InputArgument::REQUIRED,
             self::ARGUMENT_USER_DESCRIPTION
         );
 
         $this->addArgument(
             self::ARGUMENT_REVISION,
-            InputArgument::OPTIONAL,
+            InputArgument::REQUIRED,
             self::ARGUMENT_REVISION_DESCRIPTION
         );
 

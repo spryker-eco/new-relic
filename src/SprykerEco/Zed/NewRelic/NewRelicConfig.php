@@ -27,4 +27,12 @@ class NewRelicConfig extends AbstractBundleConfig
     {
         return $this->get(NewRelicEnv::NEW_RELIC_API_KEY);
     }
+
+    /**
+     * @return array
+     */
+    public function getNewRelicApplicationIdArray(): array
+    {
+        return $this->get(NewRelicEnv::NEW_RELIC_APPLICATION_ID_ARRAY, []);
+    }
 }

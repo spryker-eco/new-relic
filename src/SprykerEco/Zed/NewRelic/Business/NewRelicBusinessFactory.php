@@ -23,7 +23,8 @@ class NewRelicBusinessFactory extends AbstractBusinessFactory
     {
         return new RecordDeployment(
             $this->getConfig()->getNewRelicDeploymentApiUrl(),
-            $this->getConfig()->getNewRelicApiKey()
+            $this->getConfig()->getNewRelicApiKey(),
+            $this->getConfig()->getNewRelicApplicationIdArray()
         );
     }
 }

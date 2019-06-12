@@ -7,18 +7,22 @@
 
 namespace SprykerEco\Zed\NewRelic\Business\Model;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 use SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException;
 
 class RecordDeployment implements RecordDeploymentInterface
 {
-    const NEW_RELIC_DEPLOYMENT_API_URL = 'https://api.newrelic.com/deployments.xml';
     const STATUS_CODE_SUCCESS = 200;
     const STATUS_CODE_REDIRECTION = 300;
 
     /**
      * @var string
+     *
+     * @example https://api.eu.newrelic.com/v2/applications/12345/deployments.json
+     * @example https://api.eu.newrelic.com/v2/applications/%s/deployments.json
+     *
+     * @see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/record-deployments
      */
     protected $newRelicDeploymentApiUrl;
 
@@ -28,13 +32,24 @@ class RecordDeployment implements RecordDeploymentInterface
     protected $newRelicApiKey;
 
     /**
+     * @var array
+     */
+    protected $newRelicApplicationIds;
+
+    /**
      * @param string $newRelicDeploymentApiUrl
      * @param string $newRelicApiKey
+     * @param array $newRelicApplicationIds
      */
-    public function __construct(string $newRelicDeploymentApiUrl, string $newRelicApiKey)
+    public function __construct(
+        string $newRelicDeploymentApiUrl,
+        string $newRelicApiKey,
+        array $newRelicApplicationIds = []
+    )
     {
         $this->newRelicDeploymentApiUrl = $newRelicDeploymentApiUrl;
         $this->newRelicApiKey = $newRelicApiKey;
+        $this->newRelicApplicationIds = $newRelicApplicationIds;
     }
 
     /**
@@ -45,6 +60,61 @@ class RecordDeployment implements RecordDeploymentInterface
      * @return $this
      */
     public function recordDeployment(array $arguments = []): RecordDeploymentInterface
+    {
+        if (empty($this->newRelicApplicationIds)) {
+            return $this->recordSingleDeployment($arguments);
+        }
+
+        foreach ($this->newRelicApplicationIds as $singleApplicationId) {
+            $arguments['application_id'] = $singleApplicationId;
+            $this->recordSingleDeployment($arguments);
+        }
+
+        return $this;
+
+    }
+
+    /**
+     * @param array $params
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    protected function createRecordDeploymentRequest(array $params): ResponseInterface
+    {
+        $applicationId = $params['application_id'] ?? null;
+
+        unset($params['app_name']);
+        unset($params['application_id']);
+
+        $options = [
+            'headers' => [
+                'X-Api-Key' => $this->newRelicApiKey,
+            ],
+            'json' => [
+                'deployment' => $params,
+            ],
+        ];
+
+        $httpClient = new Client();
+
+        $deploymentUrl = $this->newRelicDeploymentApiUrl;
+        if ($applicationId) {
+            $deploymentUrl = sprintf($this->newRelicDeploymentApiUrl, $applicationId);
+        }
+
+        $request = $httpClient->post($deploymentUrl, $options);
+
+        return $request;
+    }
+
+    /**
+     * @param array $arguments
+     *
+     * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
+     *
+     * @return $this
+     */
+    private function recordSingleDeployment(array $arguments=[]): RecordDeploymentInterface
     {
         $response = $this->createRecordDeploymentRequest($arguments);
         $statusCode = $response->getStatusCode();
@@ -57,32 +127,5 @@ class RecordDeployment implements RecordDeploymentInterface
         }
 
         return $this;
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    protected function createRecordDeploymentRequest(array $params): ResponseInterface
-    {
-        $options = [
-            'headers' => [
-                'x-api-key' => $this->newRelicApiKey,
-            ],
-        ];
-
-        $data = [];
-        $data['deployment'] = [];
-        foreach ($params as $key => $value) {
-            $data['deployment'][$key] = $value;
-        }
-        $options['form_params'] = $data;
-
-        $httpClient = new Client();
-
-        $request = $httpClient->post($this->newRelicDeploymentApiUrl, $options);
-
-        return $request;
     }
 }

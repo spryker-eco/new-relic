@@ -56,7 +56,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
 
         $this->application = $application . '-' . $store . ' (' . $environment . ')';
 
-        \newrelic_set_appname($this->application);
+        \newrelic_set_appname($this->application, null, false);
     }
 
     /**
@@ -106,6 +106,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
             return;
         }
 
+        \newrelic_ignore_apdex();
         \newrelic_ignore_transaction();
     }
 
