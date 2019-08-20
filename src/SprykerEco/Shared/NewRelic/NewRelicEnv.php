@@ -28,7 +28,7 @@ interface NewRelicEnv
 
     /**
      * Specification:
-     * - NewRelic Application ID array
+     * - NewRelic Application ID array.
      *
      * @api
      */
