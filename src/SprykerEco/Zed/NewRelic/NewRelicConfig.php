@@ -13,6 +13,8 @@ use SprykerEco\Shared\NewRelic\NewRelicEnv;
 class NewRelicConfig extends AbstractBundleConfig
 {
     /**
+     * @api
+     *
      * @return string
      */
     public function getNewRelicDeploymentApiUrl(): string
@@ -21,6 +23,8 @@ class NewRelicConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return string
      */
     public function getNewRelicApiKey(): string
@@ -29,6 +33,8 @@ class NewRelicConfig extends AbstractBundleConfig
     }
 
     /**
+     * @api
+     *
      * @return array
      */
     public function getNewRelicApplicationIdArray(): array
