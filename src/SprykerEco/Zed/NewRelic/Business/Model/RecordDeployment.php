@@ -13,8 +13,8 @@ use SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException;
 
 class RecordDeployment implements RecordDeploymentInterface
 {
-    protected const STATUS_CODE_SUCCESS = 200;
-    protected const STATUS_CODE_REDIRECTION = 300;
+    public const STATUS_CODE_SUCCESS = 200;
+    public const STATUS_CODE_REDIRECTION = 300;
 
     /**
      * @var string
