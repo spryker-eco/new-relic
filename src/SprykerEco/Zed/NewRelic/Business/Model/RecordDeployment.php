@@ -54,9 +54,9 @@ class RecordDeployment implements RecordDeploymentInterface
     /**
      * @param array $arguments
      *
-     * @return \SprykerEco\Zed\NewRelic\Business\Model\RecordDeploymentInterface
+     * @return $this
      */
-    public function recordDeployment(array $arguments = []): RecordDeploymentInterface
+    public function recordDeployment(array $arguments = [])
     {
         if (empty($this->newRelicApplicationIds)) {
             return $this->recordSingleDeployment($arguments);
