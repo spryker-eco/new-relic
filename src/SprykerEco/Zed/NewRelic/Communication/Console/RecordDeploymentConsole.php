@@ -42,37 +42,37 @@ class RecordDeploymentConsole extends Console
     {
         parent::configure();
 
-        $this->setName(self::COMMAND_NAME);
-        $this->setDescription(self::DESCRIPTION);
+        $this->setName(static::COMMAND_NAME);
+        $this->setDescription(static::DESCRIPTION);
 
         $this->addArgument(
-            self::ARGUMENT_APPLICATION_NAME,
+            static::ARGUMENT_APPLICATION_NAME,
             InputArgument::REQUIRED,
-            self::ARGUMENT_APPLICATION_NAME_DESCRIPTION
+            static::ARGUMENT_APPLICATION_NAME_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_USER,
+            static::ARGUMENT_USER,
             InputArgument::REQUIRED,
-            self::ARGUMENT_USER_DESCRIPTION
+            static::ARGUMENT_USER_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_REVISION,
+            static::ARGUMENT_REVISION,
             InputArgument::REQUIRED,
-            self::ARGUMENT_REVISION_DESCRIPTION
+            static::ARGUMENT_REVISION_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_DESCRIPTION,
+            static::ARGUMENT_DESCRIPTION,
             InputArgument::OPTIONAL,
-            self::ARGUMENT_DESCRIPTION_DESCRIPTION
+            static::ARGUMENT_DESCRIPTION_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_CHANGELOG,
+            static::ARGUMENT_CHANGELOG,
             InputArgument::OPTIONAL,
-            self::ARGUMENT_CHANGELOG_DESCRIPTION
+            static::ARGUMENT_CHANGELOG_DESCRIPTION
         );
     }
 
@@ -86,7 +86,7 @@ class RecordDeploymentConsole extends Console
     {
         $this->getMessenger()->info(sprintf(
             'Send deployment notification to New Relic for %s',
-            $input->getArgument(self::ARGUMENT_APPLICATION_NAME)
+            $input->getArgument(static::ARGUMENT_APPLICATION_NAME)
         ));
 
         $arguments = $input->getArguments();
