@@ -13,8 +13,8 @@ use SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException;
 
 class RecordDeployment implements RecordDeploymentInterface
 {
-    const STATUS_CODE_SUCCESS = 200;
-    const STATUS_CODE_REDIRECTION = 300;
+    public const STATUS_CODE_SUCCESS = 200;
+    public const STATUS_CODE_REDIRECTION = 300;
 
     /**
      * @var string
@@ -45,8 +45,7 @@ class RecordDeployment implements RecordDeploymentInterface
         string $newRelicDeploymentApiUrl,
         string $newRelicApiKey,
         array $newRelicApplicationIds = []
-    )
-    {
+    ) {
         $this->newRelicDeploymentApiUrl = $newRelicDeploymentApiUrl;
         $this->newRelicApiKey = $newRelicApiKey;
         $this->newRelicApplicationIds = $newRelicApplicationIds;
@@ -55,11 +54,9 @@ class RecordDeployment implements RecordDeploymentInterface
     /**
      * @param array $arguments
      *
-     * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
-     *
      * @return $this
      */
-    public function recordDeployment(array $arguments = []): RecordDeploymentInterface
+    public function recordDeployment(array $arguments = [])
     {
         if (empty($this->newRelicApplicationIds)) {
             return $this->recordSingleDeployment($arguments);
@@ -71,7 +68,6 @@ class RecordDeployment implements RecordDeploymentInterface
         }
 
         return $this;
-
     }
 
     /**
@@ -114,7 +110,7 @@ class RecordDeployment implements RecordDeploymentInterface
      *
      * @return $this
      */
-    private function recordSingleDeployment(array $arguments=[]): RecordDeploymentInterface
+    private function recordSingleDeployment(array $arguments = []): RecordDeploymentInterface
     {
         $response = $this->createRecordDeploymentRequest($arguments);
         $statusCode = $response->getStatusCode();

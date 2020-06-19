@@ -16,7 +16,7 @@ use SprykerEco\Zed\NewRelic\Business\Model\RecordDeploymentInterface;
 class NewRelicFacade extends AbstractFacade implements NewRelicFacadeInterface
 {
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      *
      * @api
      *

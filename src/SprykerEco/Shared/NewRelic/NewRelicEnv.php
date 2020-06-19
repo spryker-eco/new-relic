@@ -15,7 +15,7 @@ interface NewRelicEnv
      *
      * @api
      */
-    const NEW_RELIC_DEPLOYMENT_API_URL = 'NEWRELIC:NEW_RELIC_DEPLOYMENT_API_URL';
+    public const NEW_RELIC_DEPLOYMENT_API_URL = 'NEWRELIC:NEW_RELIC_DEPLOYMENT_API_URL';
 
     /**
      * Specification:
@@ -23,7 +23,7 @@ interface NewRelicEnv
      *
      * @api
      */
-    const NEW_RELIC_API_KEY = 'NEWRELIC:NEW_RELIC_API_KEY';
+    public const NEW_RELIC_API_KEY = 'NEWRELIC:NEW_RELIC_API_KEY';
 
 
     /**
@@ -32,5 +32,5 @@ interface NewRelicEnv
      *
      * @api
      */
-    const NEW_RELIC_APPLICATION_ID_ARRAY = 'NEWRELIC:NEW_RELIC_APPLICATION_ID_ARRAY';
+    public const NEW_RELIC_APPLICATION_ID_ARRAY = 'NEWRELIC:NEW_RELIC_APPLICATION_ID_ARRAY';
 }

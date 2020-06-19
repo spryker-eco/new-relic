@@ -3,12 +3,12 @@
   "description": "NewRelic module",
   "license": "proprietary",
   "require": {
-    "php": ">=7.1",
-    "spryker/monitoring": "^2.0.0",
-    "spryker/monitoring-extension": "^1.0.0",
-    "spryker/kernel": "^3.0.0",
+    "php": ">=7.2",
     "psr/http-message": "^1.0.0",
-    "guzzlehttp/guzzle": "^6.0.0"
+    "spryker/guzzle": "^2.0.0",
+    "spryker/kernel": "^3.30.0",
+    "spryker/monitoring-extension": "^1.0.0",
+    "spryker/symfony": "^3.1.0"
   },
   "require-dev": {
     "codeception/codeception": "^2.0.0",
@@ -27,8 +27,12 @@
   "prefer-stable": true,
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0.x-dev"
+      "dev-master": "2.0.x-dev"
     }
+  },
+  "scripts": {
+    "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/",
+    "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/"
   },
   "config": {
     "sort-packages": true

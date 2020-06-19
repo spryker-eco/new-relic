@@ -17,23 +17,23 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class RecordDeploymentConsole extends Console
 {
-    const COMMAND_NAME = 'newrelic:record-deployment';
-    const DESCRIPTION = 'Send deployment notification to New Relic';
+    protected const COMMAND_NAME = 'newrelic:record-deployment';
+    protected const DESCRIPTION = 'Send deployment notification to New Relic';
 
-    const ARGUMENT_APPLICATION_NAME = 'app_name';
-    const ARGUMENT_APPLICATION_NAME_DESCRIPTION = 'The name of the application in New Relic';
+    protected const ARGUMENT_APPLICATION_NAME = 'app_name';
+    protected const ARGUMENT_APPLICATION_NAME_DESCRIPTION = 'The name of the application in New Relic';
 
-    const ARGUMENT_USER = 'user';
-    const ARGUMENT_USER_DESCRIPTION = 'The name of the deployer';
+    protected const ARGUMENT_USER = 'user';
+    protected const ARGUMENT_USER_DESCRIPTION = 'The name of the deployer';
 
-    const ARGUMENT_REVISION = 'revision';
-    const ARGUMENT_REVISION_DESCRIPTION = 'Revision number';
+    protected const ARGUMENT_REVISION = 'revision';
+    protected const ARGUMENT_REVISION_DESCRIPTION = 'Revision number';
 
-    const ARGUMENT_DESCRIPTION = 'description';
-    const ARGUMENT_DESCRIPTION_DESCRIPTION = 'Deployment description';
+    protected const ARGUMENT_DESCRIPTION = 'description';
+    protected const ARGUMENT_DESCRIPTION_DESCRIPTION = 'Deployment description';
 
-    const ARGUMENT_CHANGELOG = 'changelog';
-    const ARGUMENT_CHANGELOG_DESCRIPTION = 'Change log';
+    protected const ARGUMENT_CHANGELOG = 'changelog';
+    protected const ARGUMENT_CHANGELOG_DESCRIPTION = 'Change log';
 
     /**
      * @return void
@@ -42,37 +42,37 @@ class RecordDeploymentConsole extends Console
     {
         parent::configure();
 
-        $this->setName(self::COMMAND_NAME);
-        $this->setDescription(self::DESCRIPTION);
+        $this->setName(static::COMMAND_NAME);
+        $this->setDescription(static::DESCRIPTION);
 
         $this->addArgument(
-            self::ARGUMENT_APPLICATION_NAME,
+            static::ARGUMENT_APPLICATION_NAME,
             InputArgument::REQUIRED,
-            self::ARGUMENT_APPLICATION_NAME_DESCRIPTION
+            static::ARGUMENT_APPLICATION_NAME_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_USER,
+            static::ARGUMENT_USER,
             InputArgument::REQUIRED,
-            self::ARGUMENT_USER_DESCRIPTION
+            static::ARGUMENT_USER_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_REVISION,
+            static::ARGUMENT_REVISION,
             InputArgument::REQUIRED,
-            self::ARGUMENT_REVISION_DESCRIPTION
+            static::ARGUMENT_REVISION_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_DESCRIPTION,
+            static::ARGUMENT_DESCRIPTION,
             InputArgument::OPTIONAL,
-            self::ARGUMENT_DESCRIPTION_DESCRIPTION
+            static::ARGUMENT_DESCRIPTION_DESCRIPTION
         );
 
         $this->addArgument(
-            self::ARGUMENT_CHANGELOG,
+            static::ARGUMENT_CHANGELOG,
             InputArgument::OPTIONAL,
-            self::ARGUMENT_CHANGELOG_DESCRIPTION
+            static::ARGUMENT_CHANGELOG_DESCRIPTION
         );
     }
 
@@ -86,7 +86,7 @@ class RecordDeploymentConsole extends Console
     {
         $this->getMessenger()->info(sprintf(
             'Send deployment notification to New Relic for %s',
-            $input->getArgument(self::ARGUMENT_APPLICATION_NAME)
+            $input->getArgument(static::ARGUMENT_APPLICATION_NAME)
         ));
 
         $arguments = $input->getArguments();
