@@ -110,7 +110,7 @@ class RecordDeployment implements RecordDeploymentInterface
      *
      * @return $this
      */
-    private function recordSingleDeployment(array $arguments = []): RecordDeploymentInterface
+    private function recordSingleDeployment(array $arguments = [])
     {
         $response = $this->createRecordDeploymentRequest($arguments);
         $statusCode = $response->getStatusCode();
