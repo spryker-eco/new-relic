@@ -1,5 +1,6 @@
 {
   "name": "spryker-eco/new-relic",
+  "type": "library",
   "description": "NewRelic module",
   "license": "proprietary",
   "require": {
@@ -12,29 +13,35 @@
   },
   "require-dev": {
     "codeception/codeception": "^2.0.0",
-    "phpstan/phpstan": "^0.9.2 || ^0.10.0"
-  },
-  "conflict":  {
-    "spryker/new-relic": "*",
-    "spryker/new-relic-api": "*"
+    "phpstan/phpstan": "^0.9.2 || ^0.10.0",
+    "spryker/code-sniffer": "*"
   },
   "autoload": {
     "psr-4": {
       "SprykerEco\\": "src/SprykerEco/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "SprykerEcoTest\\": "tests/SprykerEcoTest/"
+    }
+  },
   "minimum-stability": "dev",
   "prefer-stable": true,
+  "scripts": {
+    "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml src/ tests/",
+    "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/SprykerStrict/ruleset.xml src/ tests/"
+  },
   "extra": {
     "branch-alias": {
       "dev-master": "2.0.x-dev"
     }
   },
-  "scripts": {
-    "cs-check": "phpcs -p -s --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/",
-    "cs-fix": "phpcbf -p --standard=vendor/spryker/code-sniffer/Spryker/ruleset.xml src/ tests/"
-  },
   "config": {
     "sort-packages": true
+  },
+  "conflict": {
+    "spryker/new-relic": "*",
+    "spryker/new-relic-api": "*"
   }
 }

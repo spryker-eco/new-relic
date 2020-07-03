@@ -25,7 +25,6 @@ interface NewRelicEnv
      */
     public const NEW_RELIC_API_KEY = 'NEWRELIC:NEW_RELIC_API_KEY';
 
-
     /**
      * Specification:
      * - NewRelic Application ID array.
