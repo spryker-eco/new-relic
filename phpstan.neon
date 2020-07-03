@@ -3,3 +3,4 @@ parameters:
 
     ignoreErrors:
         - '#Function newrelic_.+ not found.#'
+        - '#Parameter \#2 \$license of function newrelic_set_appname expects string, null given#'
