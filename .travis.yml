@@ -12,12 +12,12 @@ matrix:
     - php: 7.2
       env:
         - PRODUCT_NAME=suite
-      
-    - php: 7.2
+
+    - php: 7.4
       env:
         - PRODUCT_NAME=b2c-demo-shop
-      
-    - php: 7.2
+
+    - php: 7.4
       env:
         - PRODUCT_NAME=b2b-demo-shop
 
