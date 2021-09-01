@@ -1,0 +1,59 @@
+{
+    "error": [
+        {
+            "severity": "error",
+            "line_from": 59,
+            "line_to": 59,
+            "type": "NullArgument",
+            "message": "Argument 2 of newrelic_set_appname cannot be null, null value provided to parameter with type string",
+            "file_name": "vendor/spryker-eco/new-relic/src/SprykerEco/Service/NewRelic/Plugin/NewRelicMonitoringExtensionPlugin.php",
+            "snippet": "        newrelic_set_appname($this->application, null, false);",
+            "selected_text": "null",
+            "error_level": 6,
+            "shortcode": 57,
+            "other_references": null
+        }
+    ],
+    "warning": [
+        {
+            "severity": "info",
+            "line_from": 57,
+            "line_to": 57,
+            "type": "PossiblyNullOperand",
+            "message": "Cannot concatenate with a possibly null null|string",
+            "file_name": "vendor/spryker-eco/new-relic/src/SprykerEco/Service/NewRelic/Plugin/NewRelicMonitoringExtensionPlugin.php",
+            "snippet": "        $this->application = $application . '-' . $store . ' (' . $environment . ')';",
+            "selected_text": "$application",
+            "error_level": 1,
+            "shortcode": 80,
+            "other_references": null
+        },
+        {
+            "severity": "info",
+            "line_from": 57,
+            "line_to": 57,
+            "type": "PossiblyNullOperand",
+            "message": "Cannot concatenate with a possibly null null|string",
+            "file_name": "vendor/spryker-eco/new-relic/src/SprykerEco/Service/NewRelic/Plugin/NewRelicMonitoringExtensionPlugin.php",
+            "snippet": "        $this->application = $application . '-' . $store . ' (' . $environment . ')';",
+            "selected_text": "$store",
+            "error_level": 1,
+            "shortcode": 80,
+            "other_references": null
+        },
+        {
+            "severity": "info",
+            "line_from": 57,
+            "line_to": 57,
+            "type": "PossiblyNullOperand",
+            "message": "Cannot concatenate with a possibly null null|string",
+            "file_name": "vendor/spryker-eco/new-relic/src/SprykerEco/Service/NewRelic/Plugin/NewRelicMonitoringExtensionPlugin.php",
+            "snippet": "        $this->application = $application . '-' . $store . ' (' . $environment . ')';",
+            "selected_text": "$environment",
+            "error_level": 1,
+            "shortcode": 80,
+            "other_references": null
+        }
+    ],
+    "deprecation": []
+}
