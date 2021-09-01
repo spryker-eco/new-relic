@@ -23,7 +23,6 @@ class NewRelicMonitoringExtensionPlugin extends AbstractPlugin implements Monito
      */
     public function setError(string $message, $exception): void
     {
-        $this->getConfig()->
         $this->getService()->setError($message, $exception);
     }
 

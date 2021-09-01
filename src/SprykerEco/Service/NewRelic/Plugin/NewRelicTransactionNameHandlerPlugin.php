@@ -10,7 +10,7 @@ namespace SprykerEco\Service\NewRelic\Plugin;
 use Spryker\Service\Container\ContainerInterface;
 use Spryker\Shared\ApplicationExtension\Dependency\Plugin\ApplicationPluginInterface;
 use Spryker\Shared\ApplicationExtension\Dependency\Plugin\BootableApplicationPluginInterface;
-use Spryker\Zed\Kernel\Communication\AbstractPlugin;
+use Spryker\Service\Kernel\AbstractPlugin;
 
 /**
  * @method \SprykerEco\Service\NewRelic\NewRelicServiceInterface getService()
