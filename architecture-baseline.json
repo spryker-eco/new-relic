@@ -1,7 +1,7 @@
 [
     {
-        "fileName": "/vendor/spryker-eco/new-relic/src/SprykerEco/Zed/NewRelic/Business/NewRelicFacade.php",
-        "description": "\n      Zed Business Layer - Facade: The SprykerEco\\Zed\\NewRelic\\Business\\NewRelicFacade::recordDeployment() is using an invalid return type \"\\SprykerEco\\Zed\\NewRelic\\Business\\Model\\RecordDeploymentInterface\" which violates the rule \"Every Facade should only return native types or transfer objects.\"\n    ",
+        "fileName": "src/SprykerEco/Zed/NewRelic/Business/NewRelicFacade.php",
+        "description": "Zed Business Layer - Facade: The method `SprykerEco\\Zed\\NewRelic\\Business\\NewRelicFacade::recordDeployment()()` is using an invalid return type `\\SprykerEco\\Zed\\NewRelic\\Business\\Model\\RecordDeploymentInterface` which violates the rule \"Every Facade should only return native types or transfer objects.\"",
         "rule": "FacadeReturnValueRule",
         "ruleset": "Spryker Zed",
         "priority": "1"
