@@ -1,6 +1,7 @@
 parameters:
-    bootstrap: %rootDir%/../../../phpstan-bootstrap.php
-
+    level: 5
+    bootstrapFiles:
+        - '%rootDir%/../../../phpstan-bootstrap.php'
     ignoreErrors:
         - '#Function newrelic_.+ not found.#'
         - '#Parameter \#2 \$license of function newrelic_set_appname expects string, null given#'
