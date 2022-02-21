@@ -1,19 +1,5 @@
 {
-    "error": [
-        {
-            "severity": "error",
-            "line_from": 59,
-            "line_to": 59,
-            "type": "NullArgument",
-            "message": "Argument 2 of newrelic_set_appname cannot be null, null value provided to parameter with type string",
-            "file_name": "vendor/spryker-eco/new-relic/src/SprykerEco/Service/NewRelic/Plugin/NewRelicMonitoringExtensionPlugin.php",
-            "snippet": "        newrelic_set_appname($this->application, null, false);",
-            "selected_text": "null",
-            "error_level": 6,
-            "shortcode": 57,
-            "other_references": null
-        }
-    ],
+    "error": [],
     "warning": [
         {
             "severity": "info",
