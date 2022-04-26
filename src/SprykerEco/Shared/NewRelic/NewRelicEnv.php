@@ -14,6 +14,8 @@ interface NewRelicEnv
      * - NewRelic record deployment url.
      *
      * @api
+     *
+     * @var string
      */
     public const NEW_RELIC_DEPLOYMENT_API_URL = 'NEWRELIC:NEW_RELIC_DEPLOYMENT_API_URL';
 
@@ -22,6 +24,8 @@ interface NewRelicEnv
      * - NewRelic api key.
      *
      * @api
+     *
+     * @var string
      */
     public const NEW_RELIC_API_KEY = 'NEWRELIC:NEW_RELIC_API_KEY';
 
@@ -30,6 +34,8 @@ interface NewRelicEnv
      * - NewRelic Application ID array.
      *
      * @api
+     *
+     * @var string
      */
     public const NEW_RELIC_APPLICATION_ID_ARRAY = 'NEWRELIC:NEW_RELIC_APPLICATION_ID_ARRAY';
 }
