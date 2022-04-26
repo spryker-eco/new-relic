@@ -13,7 +13,14 @@ use SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException;
 
 class RecordDeployment implements RecordDeploymentInterface
 {
+    /**
+     * @var int
+     */
     public const STATUS_CODE_SUCCESS = 200;
+
+    /**
+     * @var int
+     */
     public const STATUS_CODE_REDIRECTION = 300;
 
     /**
@@ -58,7 +65,7 @@ class RecordDeployment implements RecordDeploymentInterface
      */
     public function recordDeployment(array $arguments = [])
     {
-        if (empty($this->newRelicApplicationIds)) {
+        if (!$this->newRelicApplicationIds) {
             return $this->recordSingleDeployment($arguments);
         }
 
@@ -118,7 +125,7 @@ class RecordDeployment implements RecordDeploymentInterface
             throw new RecordDeploymentException(sprintf(
                 'Record deployment to New Relic request failed with code %d. %s',
                 $response->getStatusCode(),
-                $response->getBody()
+                $response->getBody(),
             ));
         }
 
