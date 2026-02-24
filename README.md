@@ -16,3 +16,4 @@ composer require spryker-eco/new-relic
 ## Documentation
 
 [Documentation](https://docs.spryker.com)
+
