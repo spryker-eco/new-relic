@@ -4,14 +4,15 @@
     "description": "NewRelic module",
     "license": "MIT",
     "require": {
-        "php": ">=7.3",
-        "psr/http-message": "^1.0.0",
-        "spryker/guzzle": "^2.0.0",
-        "spryker/kernel": "^3.30.0",
-        "spryker/monitoring-extension": "^1.0.0",
-        "spryker/symfony": "^3.1.0"
+        "php": ">=8.3",
+        "spryker/application-extension": "^1.1.0",
+        "spryker/guzzle": "^2.4.0",
+        "spryker/kernel": "^3.79.0",
+        "spryker/monitoring-extension": "^1.1.0",
+        "spryker/symfony": "^3.18.0"
     },
     "require-dev": {
+        "codeception/module-asserts": "^3.3",
         "phpstan/phpstan": "^1.2.0",
         "spryker/code-sniffer": "*",
         "spryker/testify": "*"
@@ -35,7 +36,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0.x-dev"
+            "dev-master": "3.0.x-dev"
         }
     },
     "config": {

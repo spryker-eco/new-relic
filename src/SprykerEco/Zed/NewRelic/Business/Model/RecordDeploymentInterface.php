@@ -10,11 +10,11 @@ namespace SprykerEco\Zed\NewRelic\Business\Model;
 interface RecordDeploymentInterface
 {
     /**
-     * @param array $arguments
+     * @param array<string, string> $arguments
      *
      * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
      *
-     * @return $this
+     * @return void
      */
-    public function recordDeployment(array $arguments = []);
+    public function recordDeployment(array $arguments = []): void;
 }

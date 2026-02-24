@@ -11,31 +11,32 @@ interface NewRelicEnv
 {
     /**
      * Specification:
-     * - NewRelic record deployment url.
+     * - NerdGraph GraphQL API endpoint URL.
+     * - Default: https://api.newrelic.com/graphql
      *
      * @api
      *
      * @var string
      */
-    public const NEW_RELIC_DEPLOYMENT_API_URL = 'NEWRELIC:NEW_RELIC_DEPLOYMENT_API_URL';
+    public const NEW_RELIC_NERDGRAPH_API_URL = 'NEWRELIC:NEW_RELIC_NERDGRAPH_API_URL';
 
     /**
      * Specification:
-     * - NewRelic api key.
+     * - New Relic User API key for NerdGraph authentication.
      *
      * @api
      *
      * @var string
      */
-    public const NEW_RELIC_API_KEY = 'NEWRELIC:NEW_RELIC_API_KEY';
+    public const NEW_RELIC_USER_API_KEY = 'NEWRELIC:NEW_RELIC_USER_API_KEY';
 
     /**
      * Specification:
-     * - NewRelic Application ID array.
+     * - Array of New Relic entity GUIDs for deployment tracking.
      *
      * @api
      *
      * @var string
      */
-    public const NEW_RELIC_APPLICATION_ID_ARRAY = 'NEWRELIC:NEW_RELIC_APPLICATION_ID_ARRAY';
+    public const NEW_RELIC_ENTITY_GUID_ARRAY = 'NEWRELIC:NEW_RELIC_ENTITY_GUID_ARRAY';
 }

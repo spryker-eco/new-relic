@@ -1,4 +1,4 @@
-namespace: SprykerEcoTest\Service\NewRelic
+namespace: SprykerEcoTest\Zed\NewRelic
 
 paths:
     tests: .
@@ -12,16 +12,9 @@ coverage:
     whitelist: { include: ['../../../../src/*'] }
 
 suites:
-    Plugin:
-        path: Plugin/
-        class_name: SprykerEcoPluginTester
-        modules:
-            enabled:
-                - Asserts
-
-    Model:
-        path: Model/
-        class_name: SprykerEcoModelTester
+    Business:
+        path: Business/
+        class_name: SprykerEcoBusinessTester
         modules:
             enabled:
                 - Asserts

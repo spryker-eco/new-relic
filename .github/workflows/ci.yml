@@ -10,14 +10,14 @@ on:
 jobs:
     validation:
         name: Validation
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
         strategy:
             fail-fast: false
             matrix:
-                php: [ '7.4', '8.1']
+                php: [ '8.3', '8.4']
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
@@ -37,14 +37,14 @@ jobs:
 
     lowest:
         name: Prefer Lowest
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
         strategy:
             fail-fast: false
             matrix:
-                php: [ '7.4', '8.1']
+                php: [ '8.3', '8.4']
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
 
             - name: Setup PHP
               uses: shivammathur/setup-php@v2

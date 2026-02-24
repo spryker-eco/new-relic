@@ -13,13 +13,18 @@ use SprykerEco\Shared\NewRelic\NewRelicEnv;
 class NewRelicConfig extends AbstractBundleConfig
 {
     /**
+     * @var string
+     */
+    protected const DEFAULT_NERDGRAPH_API_URL = 'https://api.newrelic.com/graphql';
+
+    /**
      * @api
      *
      * @return string
      */
-    public function getNewRelicDeploymentApiUrl(): string
+    public function getNerdGraphApiUrl(): string
     {
-        return $this->get(NewRelicEnv::NEW_RELIC_DEPLOYMENT_API_URL);
+        return $this->get(NewRelicEnv::NEW_RELIC_NERDGRAPH_API_URL, static::DEFAULT_NERDGRAPH_API_URL);
     }
 
     /**
@@ -27,18 +32,18 @@ class NewRelicConfig extends AbstractBundleConfig
      *
      * @return string
      */
-    public function getNewRelicApiKey(): string
+    public function getUserApiKey(): string
     {
-        return $this->get(NewRelicEnv::NEW_RELIC_API_KEY);
+        return $this->get(NewRelicEnv::NEW_RELIC_USER_API_KEY);
     }
 
     /**
      * @api
      *
-     * @return array
+     * @return array<string>
      */
-    public function getNewRelicApplicationIdArray(): array
+    public function getEntityGuidArray(): array
     {
-        return $this->get(NewRelicEnv::NEW_RELIC_APPLICATION_ID_ARRAY, []);
+        return $this->get(NewRelicEnv::NEW_RELIC_ENTITY_GUID_ARRAY, []);
     }
 }

@@ -7,128 +7,140 @@
 
 namespace SprykerEco\Zed\NewRelic\Business\Model;
 
-use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\ClientInterface;
 use SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException;
 
 class RecordDeployment implements RecordDeploymentInterface
 {
     /**
-     * @var int
-     */
-    public const STATUS_CODE_SUCCESS = 200;
-
-    /**
-     * @var int
-     */
-    public const STATUS_CODE_REDIRECTION = 300;
-
-    /**
-     * @var string
-     *
-     * @example https://api.eu.newrelic.com/v2/applications/12345/deployments.json
-     * @example https://api.eu.newrelic.com/v2/applications/%s/deployments.json
-     *
-     * @see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/record-deployments
-     */
-    protected $newRelicDeploymentApiUrl;
-
-    /**
      * @var string
      */
-    protected $newRelicApiKey;
+    protected const MUTATION_TEMPLATE = <<<'GRAPHQL'
+mutation {
+    changeTrackingCreateDeployment(deployment: {version: "%s", entityGuid: "%s"%s}) {
+        deploymentId
+    }
+}
+GRAPHQL;
 
     /**
-     * @var array
-     */
-    protected $newRelicApplicationIds;
-
-    /**
-     * @param string $newRelicDeploymentApiUrl
-     * @param string $newRelicApiKey
-     * @param array $newRelicApplicationIds
+     * @param string $nerdGraphApiUrl
+     * @param string $userApiKey
+     * @param array<string> $entityGuids
+     * @param \GuzzleHttp\ClientInterface $httpClient
      */
     public function __construct(
-        string $newRelicDeploymentApiUrl,
-        string $newRelicApiKey,
-        array $newRelicApplicationIds = []
+        protected readonly string $nerdGraphApiUrl,
+        protected readonly string $userApiKey,
+        protected readonly array $entityGuids,
+        protected readonly ClientInterface $httpClient,
     ) {
-        $this->newRelicDeploymentApiUrl = $newRelicDeploymentApiUrl;
-        $this->newRelicApiKey = $newRelicApiKey;
-        $this->newRelicApplicationIds = $newRelicApplicationIds;
     }
 
     /**
-     * @param array $arguments
-     *
-     * @return $this
-     */
-    public function recordDeployment(array $arguments = [])
-    {
-        if (!$this->newRelicApplicationIds) {
-            return $this->recordSingleDeployment($arguments);
-        }
-
-        foreach ($this->newRelicApplicationIds as $singleApplicationId) {
-            $arguments['application_id'] = $singleApplicationId;
-            $this->recordSingleDeployment($arguments);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param array $params
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    protected function createRecordDeploymentRequest(array $params): ResponseInterface
-    {
-        $applicationId = $params['application_id'] ?? null;
-
-        unset($params['app_name']);
-        unset($params['application_id']);
-
-        $options = [
-            'headers' => [
-                'X-Api-Key' => $this->newRelicApiKey,
-            ],
-            'json' => [
-                'deployment' => $params,
-            ],
-        ];
-
-        $httpClient = new Client();
-
-        $deploymentUrl = $this->newRelicDeploymentApiUrl;
-        if ($applicationId) {
-            $deploymentUrl = sprintf($this->newRelicDeploymentApiUrl, $applicationId);
-        }
-
-        $request = $httpClient->post($deploymentUrl, $options);
-
-        return $request;
-    }
-
-    /**
-     * @param array $arguments
+     * @param array<string, string> $arguments
      *
      * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
      *
-     * @return $this
+     * @return void
      */
-    private function recordSingleDeployment(array $arguments = [])
+    public function recordDeployment(array $arguments = []): void
     {
-        $response = $this->createRecordDeploymentRequest($arguments);
+        foreach ($this->entityGuids as $entityGuid) {
+            $this->recordSingleDeployment($entityGuid, $arguments);
+        }
+    }
+
+    /**
+     * @param string $entityGuid
+     * @param array<string, string> $arguments
+     *
+     * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
+     *
+     * @return void
+     */
+    protected function recordSingleDeployment(string $entityGuid, array $arguments): void
+    {
+        $mutation = $this->buildMutation($entityGuid, $arguments);
+
+        $response = $this->httpClient->request('POST', $this->nerdGraphApiUrl, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+                'API-Key' => $this->userApiKey,
+            ],
+            'json' => [
+                'query' => $mutation,
+            ],
+        ]);
+
         $statusCode = $response->getStatusCode();
-        if ($statusCode < static::STATUS_CODE_SUCCESS || $statusCode >= static::STATUS_CODE_REDIRECTION) {
+
+        if ($statusCode < 200 || $statusCode >= 300) {
             throw new RecordDeploymentException(sprintf(
                 'Record deployment to New Relic request failed with code %d. %s',
-                $response->getStatusCode(),
+                $statusCode,
                 $response->getBody(),
             ));
         }
 
-        return $this;
+        $body = json_decode((string)$response->getBody(), true);
+
+        if (!empty($body['errors'])) {
+            $errorMessages = array_map(
+                static fn (array $error): string => $error['message'] ?? 'Unknown error',
+                $body['errors'],
+            );
+
+            throw new RecordDeploymentException(sprintf(
+                'NerdGraph deployment recording failed: %s',
+                implode('; ', $errorMessages),
+            ));
+        }
+    }
+
+    /**
+     * @param string $entityGuid
+     * @param array<string, string> $arguments
+     *
+     * @return string
+     */
+    protected function buildMutation(string $entityGuid, array $arguments): string
+    {
+        $version = $this->escapeGraphQl($arguments['revision'] ?? '');
+
+        $optionalFields = '';
+
+        if (!empty($arguments['user'])) {
+            $optionalFields .= sprintf(', user: "%s"', $this->escapeGraphQl($arguments['user']));
+        }
+
+        if (!empty($arguments['description'])) {
+            $optionalFields .= sprintf(', description: "%s"', $this->escapeGraphQl($arguments['description']));
+        }
+
+        if (!empty($arguments['changelog'])) {
+            $optionalFields .= sprintf(', changelog: "%s"', $this->escapeGraphQl($arguments['changelog']));
+        }
+
+        if (!empty($arguments['revision'])) {
+            $optionalFields .= sprintf(', commit: "%s"', $this->escapeGraphQl($arguments['revision']));
+        }
+
+        return sprintf(
+            static::MUTATION_TEMPLATE,
+            $version,
+            $this->escapeGraphQl($entityGuid),
+            $optionalFields,
+        );
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function escapeGraphQl(string $value): string
+    {
+        return addcslashes($value, '"\\');
     }
 }
