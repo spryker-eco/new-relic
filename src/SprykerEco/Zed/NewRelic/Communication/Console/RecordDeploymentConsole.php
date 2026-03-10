@@ -25,17 +25,17 @@ class RecordDeploymentConsole extends Console
     /**
      * @var string
      */
-    protected const DESCRIPTION = 'Send deployment notification to New Relic';
+    protected const DESCRIPTION = 'Send deployment notification to New Relic via NerdGraph API';
 
     /**
      * @var string
      */
-    protected const ARGUMENT_APPLICATION_NAME = 'app_name';
+    protected const ARGUMENT_REVISION = 'revision';
 
     /**
      * @var string
      */
-    protected const ARGUMENT_APPLICATION_NAME_DESCRIPTION = 'The name of the application in New Relic';
+    protected const ARGUMENT_REVISION_DESCRIPTION = 'Revision or version identifier';
 
     /**
      * @var string
@@ -46,16 +46,6 @@ class RecordDeploymentConsole extends Console
      * @var string
      */
     protected const ARGUMENT_USER_DESCRIPTION = 'The name of the deployer';
-
-    /**
-     * @var string
-     */
-    protected const ARGUMENT_REVISION = 'revision';
-
-    /**
-     * @var string
-     */
-    protected const ARGUMENT_REVISION_DESCRIPTION = 'Revision number';
 
     /**
      * @var string
@@ -88,21 +78,15 @@ class RecordDeploymentConsole extends Console
         $this->setDescription(static::DESCRIPTION);
 
         $this->addArgument(
-            static::ARGUMENT_APPLICATION_NAME,
+            static::ARGUMENT_REVISION,
             InputArgument::REQUIRED,
-            static::ARGUMENT_APPLICATION_NAME_DESCRIPTION,
+            static::ARGUMENT_REVISION_DESCRIPTION,
         );
 
         $this->addArgument(
             static::ARGUMENT_USER,
-            InputArgument::REQUIRED,
+            InputArgument::OPTIONAL,
             static::ARGUMENT_USER_DESCRIPTION,
-        );
-
-        $this->addArgument(
-            static::ARGUMENT_REVISION,
-            InputArgument::REQUIRED,
-            static::ARGUMENT_REVISION_DESCRIPTION,
         );
 
         $this->addArgument(
@@ -127,15 +111,15 @@ class RecordDeploymentConsole extends Console
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->getMessenger()->info(sprintf(
-            'Send deployment notification to New Relic for %s',
-            $input->getArgument(static::ARGUMENT_APPLICATION_NAME),
+            'Sending deployment notification to New Relic for revision %s',
+            $input->getArgument(static::ARGUMENT_REVISION),
         ));
 
         $arguments = $input->getArguments();
         unset($arguments['command']);
 
-        $this->getFacade()->recordDeployment($arguments);
+        $this->getFacade()->recordDeployment(array_filter($arguments));
 
-        return 0;
+        return static::CODE_SUCCESS;
     }
 }

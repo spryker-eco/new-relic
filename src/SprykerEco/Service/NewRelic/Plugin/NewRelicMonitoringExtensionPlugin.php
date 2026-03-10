@@ -7,24 +7,24 @@
 
 namespace SprykerEco\Service\NewRelic\Plugin;
 
+use Spryker\Service\Kernel\AbstractPlugin;
 use Spryker\Service\MonitoringExtension\Dependency\Plugin\MonitoringExtensionPluginInterface;
+use SprykerEco\Service\NewRelic\Model\NewRelicApiInterface;
 
-class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInterface
+/**
+ * @method \SprykerEco\Service\NewRelic\NewRelicServiceFactory getFactory()
+ */
+class NewRelicMonitoringExtensionPlugin extends AbstractPlugin implements MonitoringExtensionPluginInterface
 {
     /**
      * @var string
      */
-    protected $application;
+    protected string $application = '';
 
     /**
-     * @var bool
+     * @var \SprykerEco\Service\NewRelic\Model\NewRelicApiInterface|null
      */
-    protected $isActive;
-
-    public function __construct()
-    {
-        $this->isActive = extension_loaded('newrelic');
-    }
+    protected ?NewRelicApiInterface $newRelicApi = null;
 
     /**
      * @param string $message
@@ -34,11 +34,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function setError(string $message, $exception): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_notice_error($message, $exception);
+        $this->getNewRelicApi()->noticeError($message, $exception);
     }
 
     /**
@@ -50,13 +46,9 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function setApplicationName(?string $application = null, ?string $store = null, ?string $environment = null): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
         $this->application = $application . '-' . $store . ' (' . $environment . ')';
 
-        newrelic_set_appname($this->application, '', false);
+        $this->getNewRelicApi()->setAppName($this->application);
     }
 
     /**
@@ -66,11 +58,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function setTransactionName(string $name): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_name_transaction($name);
+        $this->getNewRelicApi()->nameTransaction($name);
     }
 
     /**
@@ -78,11 +66,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markStartTransaction(): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_start_transaction($this->application);
+        $this->getNewRelicApi()->startTransaction($this->application);
     }
 
     /**
@@ -90,11 +74,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markEndOfTransaction(): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_end_transaction();
+        $this->getNewRelicApi()->endTransaction();
     }
 
     /**
@@ -102,12 +82,8 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markIgnoreTransaction(): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_ignore_apdex();
-        newrelic_ignore_transaction();
+        $this->getNewRelicApi()->ignoreApdex();
+        $this->getNewRelicApi()->ignoreTransaction();
     }
 
     /**
@@ -115,11 +91,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function markAsConsoleCommand(): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_background_job(true);
+        $this->getNewRelicApi()->backgroundJob(true);
     }
 
     /**
@@ -130,11 +102,7 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function addCustomParameter(string $key, $value): void
     {
-        if (!$this->isActive) {
-            return;
-        }
-
-        newrelic_add_custom_parameter($key, $value);
+        $this->getNewRelicApi()->addCustomParameter($key, $value);
     }
 
     /**
@@ -144,10 +112,19 @@ class NewRelicMonitoringExtensionPlugin implements MonitoringExtensionPluginInte
      */
     public function addCustomTracer(string $tracer): void
     {
-        if (!$this->isActive) {
-            return;
+        $this->getNewRelicApi()->addCustomTracer($tracer);
+    }
+
+    /**
+     * @return \SprykerEco\Service\NewRelic\Model\NewRelicApiInterface
+     */
+    protected function getNewRelicApi(): NewRelicApiInterface
+    {
+        if ($this->newRelicApi === null) {
+            $this->newRelicApi = $this->getFactory()->createNewRelicApi();
         }
 
-        newrelic_add_custom_tracer($tracer);
+        /** @var \SprykerEco\Service\NewRelic\Model\NewRelicApiInterface */
+        return $this->newRelicApi;
     }
 }
