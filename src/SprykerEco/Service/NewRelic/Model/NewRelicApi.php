@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Service\NewRelic\Model;
 
+use Throwable;
+
 class NewRelicApi implements NewRelicApiInterface
 {
     /**
@@ -25,7 +27,7 @@ class NewRelicApi implements NewRelicApiInterface
      *
      * @return void
      */
-    public function noticeError(string $message, \Throwable $exception): void
+    public function noticeError(string $message, Throwable $exception): void
     {
         if (!$this->isActive) {
             return;

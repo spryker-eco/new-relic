@@ -35,6 +35,9 @@ jobs:
             - name: Syntax check
               run: find ./src -path src -prune -o -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
 
+            - name: Code style check
+              run: composer cs-check
+
     lowest:
         name: Prefer Lowest
         runs-on: ubuntu-22.04

@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Service\NewRelic\Model;
 
+use Throwable;
+
 interface NewRelicApiInterface
 {
     /**
@@ -15,7 +17,7 @@ interface NewRelicApiInterface
      *
      * @return void
      */
-    public function noticeError(string $message, \Throwable $exception): void;
+    public function noticeError(string $message, Throwable $exception): void;
 
     /**
      * @param string $appName

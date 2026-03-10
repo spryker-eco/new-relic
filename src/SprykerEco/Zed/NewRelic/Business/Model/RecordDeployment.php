@@ -40,8 +40,6 @@ GRAPHQL;
     /**
      * @param array<string, string> $arguments
      *
-     * @throws \SprykerEco\Zed\NewRelic\Business\Exception\RecordDeploymentException
-     *
      * @return void
      */
     public function recordDeployment(array $arguments = []): void
