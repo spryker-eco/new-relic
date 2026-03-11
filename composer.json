@@ -12,10 +12,13 @@
         "spryker/symfony": "^3.18.0"
     },
     "require-dev": {
-        "codeception/module-asserts": "^3.3",
         "phpstan/phpstan": "^1.2.0",
         "spryker/code-sniffer": "*",
+        "spryker/container": "*",
         "spryker/testify": "*"
+    },
+    "suggest": {
+        "spryker/container": "If you want to use NewRelicTransactionNameHandlerPlugin."
     },
     "autoload": {
         "psr-4": {

@@ -1,6 +1,7 @@
 parameters:
+    level: 5
     bootstrapFiles:
-        - %rootDir%/../../../phpstan-bootstrap.php
+        - '%rootDir%/../../../phpstan-bootstrap.php'
 
     ignoreErrors:
         - '#Function newrelic_.+ not found.#'
